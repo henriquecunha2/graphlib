@@ -1,26 +1,26 @@
 import unittest
-from graphlib import GraphUndirAdjList
+from graphlib import GrafoNaoDirListaAdj
 
 class TestGraphUndirAdjList(unittest.TestCase):
 
     def setUp(self):
         # GraphUndirAdjList da Paraíba
-        self.g_p = GraphUndirAdjList(['J', 'C', 'E', 'P', 'M', 'T', 'Z'], {'a1':'J-C', 'a2':'C-E', 'a3':'C-E', 'a4':'C-P', 'a5':'C-P', 'a6':'C-M', 'a7':'C-T', 'a8':'M-T', 'a9':'T-Z'})
+        self.g_p = GrafoNaoDirListaAdj(['J', 'C', 'E', 'P', 'M', 'T', 'Z'], {'a1': 'J-C', 'a2': 'C-E', 'a3': 'C-E', 'a4': 'C-P', 'a5': 'C-P', 'a6': 'C-M', 'a7': 'C-T', 'a8': 'M-T', 'a9': 'T-Z'})
 
         # GraphUndirAdjList da Paraíba sem arestas paralelas
-        self.g_p_sem_paralelas = GraphUndirAdjList(['J', 'C', 'E', 'P', 'M', 'T', 'Z'], {'a1': 'J-C', 'a3': 'C-E', 'a4': 'C-P', 'a6': 'C-M', 'a7': 'C-T', 'a8': 'M-T', 'a9': 'T-Z'})
+        self.g_p_sem_paralelas = GrafoNaoDirListaAdj(['J', 'C', 'E', 'P', 'M', 'T', 'Z'], {'a1': 'J-C', 'a3': 'C-E', 'a4': 'C-P', 'a6': 'C-M', 'a7': 'C-T', 'a8': 'M-T', 'a9': 'T-Z'})
 
         # GraphUndirAdjLists completos
-        self.g_c = GraphUndirAdjList(['J', 'C', 'E', 'P'], {'a1':'J-C', 'a3':'J-E', 'a4':'J-P', 'a6':'C-E', 'a7':'C-P', 'a8':'E-P'})
-        self.g_c2 = GraphUndirAdjList(['J', 'C', 'E', 'P'], {'a1':'J-C', 'a3':'E-J', 'a4':'J-P', 'a6':'E-C', 'a7':'C-P', 'a8':'P-E'})
-        self.g_c3 = GraphUndirAdjList(['J'])
+        self.g_c = GrafoNaoDirListaAdj(['J', 'C', 'E', 'P'], {'a1': 'J-C', 'a3': 'J-E', 'a4': 'J-P', 'a6': 'C-E', 'a7': 'C-P', 'a8': 'E-P'})
+        self.g_c2 = GrafoNaoDirListaAdj(['J', 'C', 'E', 'P'], {'a1': 'J-C', 'a3': 'E-J', 'a4': 'J-P', 'a6': 'E-C', 'a7': 'C-P', 'a8': 'P-E'})
+        self.g_c3 = GrafoNaoDirListaAdj(['J'])
 
         # GraphUndirAdjLists com laco
-        self.g_l1 = GraphUndirAdjList(['A', 'B', 'C', 'D'], {'a1':'A-A', 'a2':'B-A', 'a3':'A-A'})
-        self.g_l2 = GraphUndirAdjList(['A', 'B', 'C', 'D'], {'a1':'A-B', 'a2':'B-B', 'a3':'B-A'})
-        self.g_l3 = GraphUndirAdjList(['A', 'B', 'C', 'D'], {'a1':'C-A', 'a2':'C-C', 'a3':'D-D'})
-        self.g_l4 = GraphUndirAdjList(['D'], {'a2':'D-D'})
-        self.g_l5 = GraphUndirAdjList(['C', 'D'], {'a2':'D-C', 'a3':'C-C'})
+        self.g_l1 = GrafoNaoDirListaAdj(['A', 'B', 'C', 'D'], {'a1': 'A-A', 'a2': 'B-A', 'a3': 'A-A'})
+        self.g_l2 = GrafoNaoDirListaAdj(['A', 'B', 'C', 'D'], {'a1': 'A-B', 'a2': 'B-B', 'a3': 'B-A'})
+        self.g_l3 = GrafoNaoDirListaAdj(['A', 'B', 'C', 'D'], {'a1': 'C-A', 'a2': 'C-C', 'a3': 'D-D'})
+        self.g_l4 = GrafoNaoDirListaAdj(['D'], {'a2': 'D-D'})
+        self.g_l5 = GrafoNaoDirListaAdj(['C', 'D'], {'a2': 'D-C', 'a3': 'C-C'})
 
     def test_vertices_nao_adjacentes(self):
         self.assertEqual(self.g_p.vertices_nao_adjacentes(), ['J-J', 'J-E', 'J-P', 'J-M', 'J-T', 'J-Z', 'C-C', 'C-Z', 'E-J', 'E-E', 'E-P', 'E-M', 'E-T', 'E-Z', 'P-J', 'P-E', 'P-P', 'P-M', 'P-T', 'P-Z', 'M-J', 'M-E', 'M-P', 'M-M', 'M-Z', 'T-J', 'T-E', 'T-P', 'T-T', 'Z-J', 'Z-C', 'Z-E', 'Z-P', 'Z-M', 'Z-Z'])

@@ -9,7 +9,7 @@ class ArestaInvalidaException(Exception):
 class MatrizInvalidaException(Exception):
     pass
 
-class Grafo:
+class GrafoNaoDirMatrizAdj:
 
     QTDE_MAX_SEPARADOR = 1
     SEPARADOR_ARESTA = '-'
@@ -29,7 +29,7 @@ class Grafo:
             M = list()
 
         for v in V:
-            if not(Grafo.verticeValido(v)):
+            if not(GrafoNaoDirMatrizAdj.verticeValido(v)):
                 raise VerticeInvalidoException('O vértice ' + v + ' é inválido')
             if len(v) > self.__maior_vertice:
                 self.__maior_vertice = len(v)
@@ -63,7 +63,7 @@ class Grafo:
                     raise MatrizInvalidaException('A matriz não representa uma matriz não direcionada')
 
 
-                aresta = V[i] + Grafo.SEPARADOR_ARESTA + V[j]
+                aresta = V[i] + GrafoNaoDirMatrizAdj.SEPARADOR_ARESTA + V[j]
                 if not(self.arestaValida(aresta)):
                     raise ArestaInvalidaException('A aresta ' + aresta + ' é inválida')
 
@@ -82,14 +82,14 @@ class Grafo:
         '''
 
         # Não pode haver mais de um caractere separador
-        if aresta.count(Grafo.SEPARADOR_ARESTA) != Grafo.QTDE_MAX_SEPARADOR:
+        if aresta.count(GrafoNaoDirMatrizAdj.SEPARADOR_ARESTA) != GrafoNaoDirMatrizAdj.QTDE_MAX_SEPARADOR:
             return False
 
         # Índice do elemento separador
-        i_traco = aresta.index(Grafo.SEPARADOR_ARESTA)
+        i_traco = aresta.index(GrafoNaoDirMatrizAdj.SEPARADOR_ARESTA)
 
         # O caractere separador não pode ser o primeiro ou o último caractere da aresta
-        if i_traco == 0 or aresta[-1] == Grafo.SEPARADOR_ARESTA:
+        if i_traco == 0 or aresta[-1] == GrafoNaoDirMatrizAdj.SEPARADOR_ARESTA:
             return False
 
         if not(self.existeVertice(aresta[:i_traco])) or not(self.existeVertice(aresta[i_traco+1:])):
@@ -105,7 +105,7 @@ class Grafo:
         :param vertice: Um string que representa o vértice a ser analisado.
         :return: Um valor booleano que indica se o vértice está no formato correto.
         '''
-        return vertice != '' and vertice.count(Grafo.SEPARADOR_ARESTA) == 0
+        return vertice != '' and vertice.count(GrafoNaoDirMatrizAdj.SEPARADOR_ARESTA) == 0
 
     def existeVertice(self, vertice: str):
         '''
@@ -113,7 +113,7 @@ class Grafo:
         :param vertice: O vértice que deve ser verificado.
         :return: Um valor booleano que indica se o vértice existe no grafo.
         '''
-        return Grafo.verticeValido(vertice) and self.N.count(vertice) > 0
+        return GrafoNaoDirMatrizAdj.verticeValido(vertice) and self.N.count(vertice) > 0
 
     def __primeiro_vertice_aresta(self, a: str):
         '''
@@ -121,7 +121,7 @@ class Grafo:
         :param a: a aresta a ser analisada
         :return: O primeiro vértice da aresta
         '''
-        return a[0:a.index(Grafo.SEPARADOR_ARESTA)]
+        return a[0:a.index(GrafoNaoDirMatrizAdj.SEPARADOR_ARESTA)]
 
     def __segundo_vertice_aresta(self, a: str):
         '''
@@ -129,7 +129,7 @@ class Grafo:
         :param a: A aresta a ser analisada
         :return: O segundo vértice da aresta
         '''
-        return a[a.index(Grafo.SEPARADOR_ARESTA)+1:]
+        return a[a.index(GrafoNaoDirMatrizAdj.SEPARADOR_ARESTA) + 1:]
 
     def __indice_primeiro_vertice_aresta(self, a: str):
         '''
@@ -154,7 +154,7 @@ class Grafo:
         :return: Um valor booleano que indica se a aresta existe no grafo.
         '''
         existe = False
-        if Grafo.arestaValida(self, a):
+        if GrafoNaoDirMatrizAdj.arestaValida(self, a):
             for i in range(len(self.M)):
                 for j in range(len(self.M)):
                     if self.M[self.__indice_primeiro_vertice_aresta(a)][self.__indice_segundo_vertice_aresta(a)]:
